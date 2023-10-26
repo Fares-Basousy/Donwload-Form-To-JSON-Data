@@ -1,4 +1,4 @@
-name: Build and Deploy Jekyll with Vite
+name: Build and Serve React App
 
 on:
   push:
@@ -18,26 +18,11 @@ jobs:
       with:
         node-version: 14 # Specify the Node.js version you need
 
-    - name: Install Jekyll and Bundler
-      run: |
-        sudo apt install jekyll bundler
-        bundle install
-
     - name: Install npm dependencies for the React app
-      run: |
-        cd path/to/your/react/app
-        npm install
+      run: npm install
 
     - name: Build the Vite-based React app
-      run: |
-        cd path/to/your/react/app
-        npm run build
+      run: npm run build
 
-    - name: Build the Jekyll site
-      run: bundle exec jekyll build
-
-    - name: Serve the Jekyll site with React app
-      run: |
-        cd path/to/your/jekyll/site
-        jekyll serve
-
+    - name: Serve the React app
+      run: npm run dev
