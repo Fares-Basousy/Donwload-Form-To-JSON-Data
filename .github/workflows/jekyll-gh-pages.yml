@@ -20,7 +20,7 @@ jobs:
 
     - name: Install Jekyll and Bundler
       run: |
-        gem install jekyll bundler
+        sudo apt install jekyll bundler
         bundle install
 
     - name: Install npm dependencies for the React app
