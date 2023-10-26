@@ -1,0 +1,48 @@
+name: Build and Deploy Jekyll with Vite
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.x # Specify the Ruby version you need
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14 # Specify the Node.js version you need
+
+    - name: Install Jekyll and Bundler
+      run: |
+        gem install jekyll bundler
+        bundle install
+
+    - name: Install npm dependencies for the React app
+      run: |
+        cd path/to/your/react/app
+        npm install
+
+    - name: Build the Vite-based React app
+      run: |
+        cd path/to/your/react/app
+        npm run build
+
+    - name: Build the Jekyll site
+      run: bundle exec jekyll build
+
+    - name: Serve the Jekyll site with React app
+      run: |
+        cd path/to/your/jekyll/site
+        jekyll serve
+
