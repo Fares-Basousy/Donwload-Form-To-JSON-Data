@@ -25,4 +25,4 @@ jobs:
       run: npm run build
 
     - name: Serve the React app
-      run: npm run dev
+      run: npm run dev&
