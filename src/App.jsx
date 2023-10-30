@@ -5,13 +5,11 @@ function App() {
   const [infoData,setInfoData] = useState({name : "",product : "Poster",description:"",pic:"" ,price:"30000",haloPrice:"",orientation:"",colors:[],tags:[],categories:[],collections:[],halo:[]})
 
   const handleInputInfo= (event)=>{
-    console.log(event)
     const {name, value} = event.target;
     setInfoData((prev)=>({
         ...prev,
       [name]: value
     }))
-    console.log(infoData)
 
   }
   const onChangePicture = (event) => {
@@ -23,7 +21,6 @@ function App() {
           ...prev,
         pic : reader.result
         }))
-        console.log(reader.result)  
        
     }
     else if (event.target.id == 'halo'){
@@ -43,7 +40,6 @@ function App() {
   };
     
     const handleInputKeyDown = async(event) => {
-      console.log(event.target)
       if (event.key === ' ' && event.target.value.trim() !== '') {
         const prevValue = infoData[event.target.id]
         await setInfoData((prev)=>({
@@ -55,19 +51,20 @@ function App() {
     };
   
     const handleTagDelete = (tagToDelete,id) => {
-      console.log(tagToDelete)
       const updatedTags = infoData[id].filter((tag) => tag !== tagToDelete);
       setInfoData((prev)=>({
         ...prev,
       [id]: updatedTags
     }));
-    console.log(infoData)
     };
     const download = (event) => {
-      //event.preventDefault();
-      console.log(event)
-      const json = JSON.stringify(infoData);
-      const blob = new Blob([json], { type: 'application/json' });
+      event.preventDefault();
+      
+      const finalData = infoData
+      finalData.name= finalData.name.split(' ')
+      console.log(finalData)
+      console.log(JSON.stringify(finalData))
+      const blob = new Blob([JSON.stringify(finalData)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
